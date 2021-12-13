@@ -18,15 +18,15 @@ defmodule BinarySearch do
   """
 
   @spec search(tuple, integer) :: {:ok, integer} | :not_found
-  def search(numbers, key, lo \\ 0, hi \\ :infinity)
-  def search(_, _, lo, hi) when lo > hi, do: :not_found
-  def search(numbers, key, lo, :infinity), do: search(numbers, key, lo, tuple_size(numbers) - 1)
+  def search(numbers, key) do
+    search(numbers, key, 0, tuple_size(numbers) - 1)
+  end
 
-  def search(numbers, key, lo, hi) do
-    # IO.inspect(numbers, label: "Numbers")
+  defp search(_numbers, _key, lo, hi) when lo > hi, do: :not_found
+
+  defp search(numbers, key, lo, hi) do
     mid = div(lo + hi, 2)
     val = elem(numbers, mid)
-    # IO.inspect("Len: #{len}, Mid: #{mid}, Val: #{val}")
 
     cond do
       val == key ->
@@ -35,7 +35,7 @@ defmodule BinarySearch do
       key < val ->
         search(numbers, key, lo, mid - 1)
 
-      true ->
+      key > val ->
         search(numbers, key, mid + 1, hi)
     end
   end
