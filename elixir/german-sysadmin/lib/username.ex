@@ -2,25 +2,23 @@ defmodule Username do
   def sanitize([]), do: []
 
   def sanitize([char | tail]) do
-    # ä becomes ae 228
-    # ö becomes oe 246
-    # ü becomes ue 252
-    # ß becomes ss 223
-
     case char do
-      228 ->
+      ?ä ->
         'ae'
 
-      246 ->
+      ?ö ->
         'oe'
 
-      252 ->
+      ?ü ->
         'ue'
 
-      223 ->
+      ?ß ->
         'ss'
 
-      char when (char > 96 and char < 123) or char == 95 ->
+      ?_ ->
+        '_'
+
+      char when char >= ?a and char <= ?z ->
         [char]
 
       _ ->
