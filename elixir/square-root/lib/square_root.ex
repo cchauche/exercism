@@ -10,12 +10,6 @@ defmodule SquareRoot do
   end
 
   defp find_sqrt(num, radicand) do
-    cond do
-      num * num == radicand ->
-        num
-
-      true ->
-        find_sqrt(num - 1, radicand)
-    end
+    Enum.find(num..2, &(&1 * &1 == radicand))
   end
 end
