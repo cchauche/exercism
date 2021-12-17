@@ -89,8 +89,8 @@ defmodule RationalNumbers do
 
   defp make_negative({n, d}), do: {n * -1, d}
 
-  def find_gcd({0, b}), do: b
-  def find_gcd({a, 0}), do: a
-  def find_gcd({a, b}) when b > a, do: find_gcd({b, a})
-  def find_gcd({a, b}), do: find_gcd({b, a - b})
+  defp find_gcd({0, b}), do: b
+  defp find_gcd({a, 0}), do: a
+  defp find_gcd({a, b}) when b > a, do: find_gcd({b, a})
+  defp find_gcd({a, b}), do: find_gcd({b, a - b})
 end
