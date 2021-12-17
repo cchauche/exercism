@@ -11,7 +11,7 @@ defmodule LinkedList do
   Push an item onto a LinkedList
   """
   @spec push(t, any()) :: t
-  def push({val, _tail, size} = list, elem) do
+  def push({_val, _tail, size} = list, elem) do
     {elem, list, size + 1}
   end
 
@@ -77,7 +77,9 @@ defmodule LinkedList do
 
   defp do_reverse(reversed, {:empty_list, {}, 0}), do: reversed
 
-  defp do_reverse(reversed, {val, tail, _size}) do
+  defp do_reverse(reversed, list) do
+    {:ok, val, tail} = pop(list)
+
     reversed
     |> push(val)
     |> do_reverse(tail)
