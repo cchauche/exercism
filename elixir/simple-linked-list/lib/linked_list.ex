@@ -5,79 +5,63 @@ defmodule LinkedList do
   Construct a new LinkedList
   """
   @spec new() :: t
-  def new() do
-    # Your implementation here...
-  end
+  def new(), do: []
 
   @doc """
   Push an item onto a LinkedList
   """
   @spec push(t, any()) :: t
-  def push(list, elem) do
-    # Your implementation here...
-  end
+  def push(list, elem), do: [elem | list]
 
   @doc """
   Counts the number of elements in a LinkedList
   """
   @spec count(t) :: non_neg_integer()
-  def count(list) do
-    # Your implementation here...
-  end
+  def count(list), do: length(list)
 
   @doc """
   Determine if a LinkedList is empty
   """
   @spec empty?(t) :: boolean()
-  def empty?(list) do
-    # Your implementation here...
-  end
+  def empty?(list), do: length(list) == 0
 
   @doc """
   Get the value of a head of the LinkedList
   """
   @spec peek(t) :: {:ok, any()} | {:error, :empty_list}
-  def peek(list) do
-    # Your implementation here...
-  end
+  def peek([h | _t]), do: {:ok, h}
+  def peek([]), do: {:error, :empty_list}
 
   @doc """
   Get tail of a LinkedList
   """
   @spec tail(t) :: {:ok, t} | {:error, :empty_list}
-  def tail(list) do
-    # Your implementation here...
-  end
+  def tail([]), do: {:error, :empty_list}
+  def tail([_h | t]), do: {:ok, t}
 
   @doc """
   Remove the head from a LinkedList
   """
   @spec pop(t) :: {:ok, any(), t} | {:error, :empty_list}
-  def pop(list) do
-    # Your implementation here...
-  end
+  def pop([]), do: {:error, :empty_list}
+  def pop([h | t]), do: {:ok, h, t}
 
   @doc """
   Construct a LinkedList from a stdlib List
   """
   @spec from_list(list()) :: t
-  def from_list(list) do
-    # Your implementation here...
-  end
+  def from_list(list) when is_list(list), do: list
 
   @doc """
   Construct a stdlib List LinkedList from a LinkedList
   """
   @spec to_list(t) :: list()
-  def to_list(list) do
-    # Your implementation here...
-  end
+  def to_list(list), do: list
 
   @doc """
   Reverse a LinkedList
   """
   @spec reverse(t) :: t
-  def reverse(list) do
-    # Your implementation here...
-  end
+  def reverse([]), do: []
+  def reverse([h | t]), do: reverse(t) ++ [h]
 end
