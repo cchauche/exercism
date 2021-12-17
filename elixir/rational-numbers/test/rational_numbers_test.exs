@@ -191,7 +191,7 @@ defmodule RationalNumbersTest do
   end
 
   describe "Exponentiation of a rational number" do
-    @tag :pending
+    # @tag :pending
     test "Raise a positive rational number to a positive integer power" do
       r = {1, 2}
       n = 3
@@ -199,7 +199,7 @@ defmodule RationalNumbersTest do
       assert RationalNumbers.pow_rational(r, n) == result
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise a negative rational number to a positive integer power" do
       r = {-1, 2}
       n = 3
@@ -207,7 +207,7 @@ defmodule RationalNumbersTest do
       assert RationalNumbers.pow_rational(r, n) == result
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise zero to an integer power" do
       r = {0, 1}
       n = 5
@@ -215,7 +215,7 @@ defmodule RationalNumbersTest do
       assert RationalNumbers.pow_rational(r, n) == result
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise one to an integer power" do
       r = {1, 1}
       n = 4
@@ -223,7 +223,7 @@ defmodule RationalNumbersTest do
       assert RationalNumbers.pow_rational(r, n) == result
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise a positive rational number to the power of zero" do
       r = {1, 2}
       n = 0
@@ -231,7 +231,7 @@ defmodule RationalNumbersTest do
       assert RationalNumbers.pow_rational(r, n) == result
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise a negative rational number to the power of zero" do
       r = {-1, 2}
       n = 0
@@ -241,7 +241,7 @@ defmodule RationalNumbersTest do
   end
 
   describe "Exponentiation of a real number to a rational number" do
-    @tag :pending
+    # @tag :pending
     test "Raise a real number to a positive rational number" do
       x = 8
       r = {4, 3}
@@ -249,7 +249,7 @@ defmodule RationalNumbersTest do
       assert_in_delta RationalNumbers.pow_real(x, r), result, 1.0e-10
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise a real number to a negative rational number" do
       x = 9
       r = {-1, 2}
@@ -257,7 +257,7 @@ defmodule RationalNumbersTest do
       assert_in_delta RationalNumbers.pow_real(x, r), result, 1.0e-10
     end
 
-    @tag :pending
+    # @tag :pending
     test "Raise a real number to a zero rational number" do
       x = 2
       r = {0, 1}

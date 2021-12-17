@@ -49,14 +49,21 @@ defmodule RationalNumbers do
   Exponentiation of a rational number by an integer
   """
   @spec pow_rational(a :: rational, n :: integer) :: rational
-  def pow_rational(a, n) do
+  def pow_rational({a, b}, n) when n < 0 do
+    n = n * -1
+    reduce({b ** n, a ** n})
+  end
+
+  def pow_rational({a, b}, n) do
+    reduce({a ** n, b ** n})
   end
 
   @doc """
   Exponentiation of a real number by a rational number
   """
   @spec pow_real(x :: integer, n :: rational) :: float
-  def pow_real(x, n) do
+  def pow_real(x, {a, b}) do
+    x ** (a / b)
   end
 
   @doc """
