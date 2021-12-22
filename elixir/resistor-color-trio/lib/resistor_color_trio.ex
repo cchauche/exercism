@@ -21,12 +21,12 @@ defmodule ResistorColorTrio do
 
     ohms = (d1 * 10 + d2) * Integer.pow(10, pow)
 
-    maybe_kiloohms({ohms, :ohms})
-  end
+    cond do
+      ohms >= 1_000 ->
+        {div(ohms, 1000), :kiloohms}
 
-  defp maybe_kiloohms({ohms, :ohms}) when ohms >= 1_000 do
-    {div(ohms, 1000), :kiloohms}
+      true ->
+        {ohms, :ohms}
+    end
   end
-
-  defp maybe_kiloohms(resistance), do: resistance
 end
