@@ -3,13 +3,11 @@ defmodule Sublist do
   Returns whether the first list is a sublist or a superlist of the second list
   and if not whether it is equal or unequal to the second list.
   """
-  def compare(a, b) when a == b, do: :equal
-  # def compare(a, b) when a != b and length(a) == length(b), do: :unequal
-  def compare([], [_h | _t]), do: :sublist
-  def compare([_h | _t], []), do: :superlist
-
   def compare(a, b) do
     cond do
+      a === b ->
+        :equal
+
       sublist?(a, b) ->
         :sublist
 
@@ -20,6 +18,9 @@ defmodule Sublist do
         :unequal
     end
   end
+
+  defp sublist?([], [_h | _t]), do: true
+  defp sublist?([_h | _t], []), do: false
 
   defp sublist?(a, b) do
     len = length(a)
