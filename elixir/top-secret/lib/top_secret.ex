@@ -3,24 +3,14 @@ defmodule TopSecret do
     Code.string_to_quoted!(string)
   end
 
-  def decode_secret_message_part(ast, acc \\ [])
-
-  def decode_secret_message_part({op, _data, [fun | _]} = ast, acc)
+  def decode_secret_message_part({op, _data, args} = ast, acc)
       when op == :def or op == :defp do
-    fun =
-      case fun do
-        {:when, _data, args} ->
-          List.first(args)
+    {name, args} = get_fun_name_args(args)
 
-        fun ->
-          fun
-      end
-
-    arity = get_fun_arity(fun)
+    arity = length(args)
 
     name =
-      fun
-      |> elem(0)
+      name
       |> Atom.to_string()
       |> trim_to_length(arity)
 
@@ -29,6 +19,14 @@ defmodule TopSecret do
 
   def decode_secret_message_part(ast, acc) do
     {ast, acc}
+  end
+
+  defp get_fun_name_args(def_args) do
+    case def_args do
+      [{:when, _, args} | _] -> get_fun_name_args(args)
+      [{name, _, args} | _] when is_list(args) -> {name, args}
+      [{name, _, args} | _] when is_atom(args) -> {name, []}
+    end
   end
 
   def decode_secret_message(string) do
@@ -65,9 +63,6 @@ defmodule TopSecret do
     {_, acc} = decode_secret_message_part(ast, acc)
     acc
   end
-
-  defp get_fun_arity({_fun, _data, nil}), do: 0
-  defp get_fun_arity({_fun, _data, args}), do: length(args)
 
   defp trim_to_length(_string, 0), do: ""
 
