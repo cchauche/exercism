@@ -21,13 +21,6 @@ defmodule Newsletter do
 
     read_emails(emails_path)
     |> Enum.each(fn email ->
-      # case send_fun.(email) do
-      #   :ok ->
-      #     log_sent_email(log_pid, email)
-
-      #   _ ->
-      #     nil
-      # end
       if :ok == send_fun.(email), do: log_sent_email(log_pid, email)
     end)
 
