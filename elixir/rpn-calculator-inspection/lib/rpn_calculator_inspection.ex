@@ -21,14 +21,10 @@ defmodule RPNCalculatorInspection do
   def reliability_check(calculator, inputs) do
     trap_exit_value = Process.flag(:trap_exit, true)
 
-    results =
-      Enum.reduce(inputs, %{}, fn input, results ->
-        start_reliability_check(calculator, input)
-        |> await_reliability_check_result(results)
-      end)
-
-    Process.flag(:trap_exit, trap_exit_value)
-    results
+    inputs
+    |> Enum.map(fn input -> start_reliability_check(calculator, input) end)
+    |> Enum.reduce(%{}, &await_reliability_check_result/2)
+    |> tap(fn _ -> Process.flag(:trap_exit, trap_exit_value) end)
   end
 
   def correctness_check(calculator, inputs) do
