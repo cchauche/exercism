@@ -1,6 +1,6 @@
 defmodule RPNCalculatorInspection do
   def start_reliability_check(calculator, input) do
-    {:ok, pid} = Task.start_link(fn -> calculator.(input) end)
+    pid = spawn_link(fn -> calculator.(input) end)
 
     %{input: input, pid: pid}
   end
@@ -32,6 +32,8 @@ defmodule RPNCalculatorInspection do
   end
 
   def correctness_check(calculator, inputs) do
-    # Please implement the correctness_check/2 function
+    inputs
+    |> Enum.map(fn input -> Task.async(fn -> calculator.(input) end) end)
+    |> Enum.map(fn task -> Task.await(task, 100) end)
   end
 end
