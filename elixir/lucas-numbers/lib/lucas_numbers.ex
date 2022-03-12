@@ -9,9 +9,14 @@ defmodule LucasNumbers do
   def generate(1), do: [2]
   def generate(2), do: [2, 1]
 
-  def generate(count) when is_integer(count) and count >= 1 do
-    [a, b | _] = nums = generate(count - 1) |> Enum.reverse()
-    [a + b | nums] |> Enum.reverse()
+  def generate(count) when is_integer(count) and count > 2 do
+    tail =
+      {2, 1}
+      |> Stream.iterate(fn {a, b} -> {b, a + b} end)
+      |> Stream.map(fn {_, b} -> b end)
+      |> Enum.take(count - 1)
+
+    [2 | tail]
   end
 
   def generate(_), do: raise(ArgumentError, "count must be specified as an integer >= 1")
