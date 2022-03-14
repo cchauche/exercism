@@ -59,34 +59,3 @@ defmodule NewPassport do
     Time.compare(from, time) != :gt and Time.compare(to, time) == :gt
   end
 end
-
-defmodule Anagram do
-  @doc """
-  Returns all candidates that are anagrams of, but not equal to, 'base'.
-  """
-  @spec match(String.t(), [String.t()]) :: [String.t()]
-  def match(base, candidates) do
-    base = String.downcase(base)
-    base_sorted = sort(base)
-
-    candidates
-    |> Enum.reduce([], fn el, acc ->
-      d_el = String.downcase(el)
-
-      with true <- base != d_el,
-           true <- base_sorted == sort(d_el) do
-        [el | acc]
-      else
-        _ -> acc
-      end
-    end)
-    |> Enum.sort()
-  end
-
-  defp sort(str) do
-    str
-    |> String.split("", trim: true)
-    |> Enum.sort()
-    |> Enum.join("")
-  end
-end
