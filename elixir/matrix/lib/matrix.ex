@@ -35,6 +35,9 @@ defmodule Matrix do
   """
   @spec to_string(matrix :: %Matrix{}) :: String.t()
   def to_string(matrix) do
+    rows(matrix)
+    |> Enum.map(&Enum.join(&1, " "))
+    |> Enum.join("\n")
   end
 
   @doc """
@@ -63,6 +66,10 @@ defmodule Matrix do
   """
   @spec columns(matrix :: %Matrix{}) :: list(list(integer))
   def columns(matrix) do
+    matrix.matrix
+    |> get_in([1])
+    |> Map.keys()
+    |> Enum.map(&column(matrix, &1))
   end
 
   @doc """
@@ -70,5 +77,8 @@ defmodule Matrix do
   """
   @spec column(matrix :: %Matrix{}, index :: integer) :: list(integer)
   def column(matrix, index) do
+    matrix.matrix
+    |> Map.keys()
+    |> Enum.map(&get_in(matrix.matrix, [&1, index]))
   end
 end
