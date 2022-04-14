@@ -17,10 +17,10 @@ defmodule Minesweeper do
 
   def annotate(board) do
     board
+    |> Enum.map(&String.codepoints/1)
     |> Enum.with_index()
     |> Enum.reduce(board, fn {row, row_num}, board ->
       row
-      |> String.split("", trim: true)
       |> Enum.with_index()
       |> Enum.reduce(board, fn
         {"*", _}, board ->
@@ -43,7 +43,8 @@ defmodule Minesweeper do
   defp check_for_mine(_board, row_num, col_num) when row_num < 0 or col_num < 0, do: 0
 
   defp check_for_mine(board, row_num, col_num) do
-    with row when is_bitstring(row) <- Enum.at(board, row_num),
+    with row
+         when is_bitstring(row) <- Enum.at(board, row_num),
          @mine <- String.at(row, col_num) do
       1
     else
@@ -55,7 +56,7 @@ defmodule Minesweeper do
     row =
       board
       |> Enum.at(row_num)
-      |> String.split("", trim: true)
+      |> String.codepoints()
       |> List.update_at(
         col_num,
         fn
