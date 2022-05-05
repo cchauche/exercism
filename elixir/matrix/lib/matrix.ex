@@ -58,7 +58,7 @@ defmodule Matrix do
     matrix.matrix
     |> get_in([index])
     |> Map.to_list()
-    |> Enum.map(fn {k, v} -> v end)
+    |> Enum.map(fn {_k, v} -> v end)
   end
 
   @doc """
