@@ -8,7 +8,7 @@ class SimpleCalculator
     if not ALLOWED_OPERATIONS.include? operation
       raise UnsupportedOperation
     end
-    if (not first_operand.is_a? Numeric) || (not second_operand.is_a? Numeric)
+    unless (first_operand.is_a? Numeric) && (second_operand.is_a? Numeric)
       raise ArgumentError
     end
     answer = 0
@@ -27,6 +27,6 @@ class SimpleCalculator
       end
     rescue
     end
-    return "#{first_operand} #{operation} #{second_operand} = #{answer}"
+    "#{first_operand} #{operation} #{second_operand} = #{answer}"
   end
 end
